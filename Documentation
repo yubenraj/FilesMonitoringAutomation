@@ -16,8 +16,8 @@ The script expects a CSV file (CHECKLIST.csv) structured as follows:
 fileName,expectedTime,expectedDirectory,client,category
 moare-current-reserves-<dateToken>.csv,19:03,input/,NCR,Merchant Reserves
 CL9DFMDE.41454.NAGW-MLEMT002.984980020882.d.20220907.dfm.<dateToken>.csv,19:03,Input/,TILL TPSAU_ARTEGO_ID_<dateToken>_01.csv,20:07,Input1/,TILL AUS,Settlement.
-S3 Folder Structure:
 
+S3 Folder Structure:
 The script operates on three S3 buckets, with specific folder paths:
 Bucket 1 (NCR)
 Input:  FOLDER_NCR/Input/
@@ -31,8 +31,8 @@ Bucket 3 (TILL US)
 Input:  FOLDER_ TILL_US/Input/
 Archive:  FOLDER_ TILL_US/Archive/
 Error:  FOLDER_ TILL_US/Error/
-The script operates on three S3 buckets, with specific folder paths:
 
+The script operates on three S3 buckets, with specific folder paths:
 Parameters:
 bucket_name: Name of the S3 bucket.
 input_folder: Folder path for input files.
@@ -67,8 +67,8 @@ monitor_s3_folder():
 Main function that continuously monitors S3 folders for expected files. It fetches file statuses, checks for missing files, and sends corresponding events to New Relic.
 fetch_s3_files (bucket_name, input_folder, archive_folder, error_folder)
 Fetches lists of files from specified folders in a given S3 bucket.
-New relic UI Dashboard Screenshots:
 
+New relic UI Dashboard Screenshots:
 Table:
 Client Name: (ex; NCR, TILL US)
 Category: (ex; Merchant Reserves, Settlement, Interchange/Qualification).
