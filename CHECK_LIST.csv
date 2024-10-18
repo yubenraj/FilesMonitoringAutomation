@@ -1,0 +1,13 @@
+fileName,expectedTime,expectedDirectory,client,category
+WPYAU24<monthToken>1,16:47,Input/,TILL AUS,Same Day Funding
+<dateToken>_Till_Payments_TransactionExtract.csv,16:42,Input/,TILL AUS,Settlement
+TPSAU_ARTEGO_ID_<dateToken>_01.csv,17:30,Input/,TILL AUS,Interchange/Qualification
+TPSAU_ARTEGO_ID_<dateToken>_02.csv ,17:30,Input/,TILL AUS,Interchange/Qualification
+TPSAU_ARTEGO_TR_<dateToken>_01.csv,18:35,Input/,TILL AUS,Settlement
+TPSAU_ARTEGO_TR_<dateToken>_02.csv,18:35,Input/,TILL AUS,Settlement
+00000021_408_CS_<dateToken>.csv,19:22,Input/,TILL AUS,Chargeback
+00000021_408_ID_<dateToken>.csv,19:25,Input/,TILL AUS,Interchange/Qualification
+00000021_408_TR_<dateToken>.csv,19:26,Input/,TILL AUS,Settlement
+00000028_CIT_CS_<dateToken>.csv,19:28,Input/,TILL AUS,Chargeback
+00000028_CIT_ID_<dateToken>.csv,19:32,Input/,TILL AUS,Interchange/Qualification
+00000028_CIT_TR_<dateToken>.csv,19:39,Input/,TILL AUS,Settlement
