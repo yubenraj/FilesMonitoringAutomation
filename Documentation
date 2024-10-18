@@ -1,0 +1,87 @@
+Overview:
+This Python script monitors AWS S3 buckets for specific files, sends events to New Relic based on file statuses, and processes files in designated input, archive, and error folders. The script utilizes the boto3 library to interact with S3, requests for HTTP operations, and standard libraries for logging, CSV handling, and time management and finally we can view all activities by New Relic Dashboard.
+Requirements :
+•	Python 3.x
+•	Libraries: boto3, requests, configparser
+•	AWS account with S3 access
+•	New Relic account for monitoring
+
+Boto3: is the Amazon Web Services (AWS) SDK for Python. It allows developers to write software that makes use of services like Amazon S3, EC2, DynamoDB, and many more. Boto3 simplifies the process of interacting with AWS resources, making it easier to create, configure, and manage AWS services using Python.
+Using AWS_ACCESS_KEY, AWS_SECRET_KEY
+Configparser: We read config.ini using Configparser Library, Inside config.ini file AWS_ACCESS_KEY, AWS_SECRET_KEY, NEW_RELIC_API_KEY, NEW_RELIC_ACCOUNT_ID, S3_BUCKET are declared.
+Requests: is a popular Python library for making HTTP requests simpler and more human-friendlier with new relic. It abstracts the complexities of making requests, API calls, allowing developers to interact with web services with easily.
+
+Expected CSV File:
+The script expects a CSV file (CHECKLIST.csv) structured as follows:
+fileName,expectedTime,expectedDirectory,client,category
+moare-current-reserves-<dateToken>.csv,19:03,input/,NCR,Merchant Reserves
+CL9DFMDE.41454.NAGW-MLEMT002.984980020882.d.20220907.dfm.<dateToken>.csv,19:03,Input/,TILL TPSAU_ARTEGO_ID_<dateToken>_01.csv,20:07,Input1/,TILL AUS,Settlement.
+S3 Folder Structure:
+
+The script operates on three S3 buckets, with specific folder paths:
+Bucket 1 (NCR)
+Input:  FOLDER_NCR/Input/
+Archive:  FOLDER_ NCR /Archive/
+Error:  FOLDER_ NCR /Error/
+Bucket 2 (TILL AUS)
+Input:  FOLDER_ TILL_AUS/Input1/
+Archive:  FOLDER_ TILL_AUS/Archive/
+Error:  FOLDER_ TILL_AUS/Error/
+Bucket 3 (TILL US)
+Input:  FOLDER_ TILL_US/Input/
+Archive:  FOLDER_ TILL_US/Archive/
+Error:  FOLDER_ TILL_US/Error/
+The script operates on three S3 buckets, with specific folder paths:
+
+Parameters:
+bucket_name: Name of the S3 bucket.
+input_folder: Folder path for input files.
+archive_folder: Folder path for archived files.
+error_folder: Folder path for error files.
+handle_in_progress_and_completion(expected_files, current_time, input_files, expected_time, archive_files, error_files, received_files, found_files, in_progress_files)
+Handles the tracking of files that are in progress, completed, or encountered errors. Sends appropriate events to New Relic based on the file status.
+
+Key Functions:
+send_event_to_new_relic(client_name, status, file_name, category, expected_time, event_type)
+Sends an event to New Relic with the specified parameters.
+All Events send from script to New Relic UI :
+Total Received file: Daily will check for files (10 minutes before and 10 minutes after by expected Time). If any expected file received within expected Time at expected Input Directory for a particular client. it will trigger Received Status for every single file.
+<dateToken>:  '%Y%m%d'
+%Y: Present year
+%m: Present Month
+%d': Present Date
+Total Missing Files: Total number of Files missing for particular client on particular date.
+In progress: Every 90 seconds it reads input folder, if any files still lying there from time of received, it will trigger In progress Status to new relic UI.
+Total Parsed Files: Total number of Files moved from input folder to archive folder. it will trigger Completely Parsed Status.
+Total Files Error: Total number of Files moved from input folder to Error folder. it will trigger Error while Parsing Status.
+
+Parameters:
+client_name: Name of the client.
+status: Status of the file (e.g., "Received", "Missing").
+file_name: Name of the file.
+category: Category of the file.
+expected_time: The expected time of the file's arrival.
+event_type: Type of event (e.g., "Total Received file").
+read_expected_files() :Reads the expected files from the CHECKLIST.csv and returns a list of expected file dictionaries.
+monitor_s3_folder():
+Main function that continuously monitors S3 folders for expected files. It fetches file statuses, checks for missing files, and sends corresponding events to New Relic.
+fetch_s3_files (bucket_name, input_folder, archive_folder, error_folder)
+Fetches lists of files from specified folders in a given S3 bucket.
+New relic UI Dashboard Screenshots:
+
+Table:
+Client Name: (ex; NCR, TILL US)
+Category: (ex; Merchant Reserves, Settlement, Interchange/Qualification).
+File Name: (ex; moare-current-reserves-20241014.csv, 00000021_408_CS_20241014.csv).
+Timestamp: File Received time.
+Status: Completely Parsed, In Progress,
+Missing: Files missing for particular client on particular date.
+
+Logging
+Logging is configured at the INFO level. Events related to file processing will be logged to the console, providing insight into the script's operations and any errors encountered.
+
+Error Handling
+The script includes error handling for network requests and file operations. Errors are logged, and the monitoring loop continues unless interrupted by the user.
+
+Conclusion
+This script provides a robust solution for monitoring file uploads to S3 and integrating with New Relic for monitoring purposes. Ensure proper configuration and access permissions for successful operation.
