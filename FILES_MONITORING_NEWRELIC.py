@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Load credentials from JSON file
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read('credentials.ini')
 
 AWS_ACCESS_KEY = config['aws']['AWS_ACCESS_KEY']
 AWS_SECRET_KEY = config['aws']['AWS_SECRET_KEY']
@@ -37,7 +37,7 @@ ARCHIVE_FOLDER_3 = 'billing/archive/'
 ERROR_FOLDER_3 = 'billing/error/'
 
 # CSV file with the expected file list
-EXPECTED_FILE_CHECKLIST = r'e:\NCR\CHECK_LIST.csv'
+EXPECTED_FILE_CHECKLIST = r'//Checklistpath//'
 
 # Initialize S3 client
 s3 = boto3.client(
