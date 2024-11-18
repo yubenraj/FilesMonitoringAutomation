@@ -215,7 +215,7 @@ def handle_in_progress_and_completion(expected_files, current_time, input_files,
         else:
             matched_files = [file_name] if file_name in input_files else []
         if matched_files:
-            if (file_name not in in_progress_files) or (isinstance(in_progress_files[file_name], datetime) and (current_time - in_progress_files[file_name]).seconds >= in_progress_check_interval, in_progress_check_interval):
+            if (file_name not in in_progress_files) or (isinstance(in_progress_files[file_name], datetime) and (current_time - in_progress_files[file_name]).seconds >= in_progress_check_interval):
                 expected_file_details = next((exp for exp in expected_files if exp['fileName'].replace('<dateToken>', current_time.strftime('%Y%m%d')).replace('<monthToken>', current_time.strftime('%m%d')) == file_name), None)
                 if expected_file_details:
                     category = expected_file_details.get('category', 'General')
