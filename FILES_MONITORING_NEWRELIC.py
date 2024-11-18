@@ -82,16 +82,16 @@ def read_expected_files():
 
 # Define time intervals for each S3 bucket
 TIME_BEFORE_1 = timedelta(minutes=15)
-TIME_AFTER_1 = timedelta(minutes=15)
-IN_PROGRESS_CHECK_INTERVAL_1 = 150
+TIME_AFTER_1 = timedelta(minutes=20)
+IN_PROGRESS_CHECK_INTERVAL_1 = 300
 
 TIME_BEFORE_2 = timedelta(minutes=15)
-TIME_AFTER_2 = timedelta(minutes=15)
-IN_PROGRESS_CHECK_INTERVAL_2 = 150
+TIME_AFTER_2 = timedelta(minutes=20)
+IN_PROGRESS_CHECK_INTERVAL_2 = 300
 
 TIME_BEFORE_3 = timedelta(minutes=15)
-TIME_AFTER_3 = timedelta(minutes=15)
-IN_PROGRESS_CHECK_INTERVAL_3 = 150
+TIME_AFTER_3 = timedelta(minutes=20)
+IN_PROGRESS_CHECK_INTERVAL_3 = 300
 
 def monitor_s3_folder():
     expected_files = read_expected_files()
